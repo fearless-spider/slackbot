@@ -1,3 +1,6 @@
+"""
+Bot to interact with Slack
+"""
 import os
 import time
 import re

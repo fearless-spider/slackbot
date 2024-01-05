@@ -10,7 +10,7 @@ from slackclient import SlackClient
 # instantiate Slack client
 slack_client = SlackClient(os.environ.get("SLACK_BOT_TOKEN"))
 # starterbot's user ID in Slack: value is assigned after the bot starts up
-starterbot_id = None
+STARTERBOT_ID = None
 
 # constants
 RTM_READ_DELAY = 1  # 1 second delay between reading from RTM
@@ -27,7 +27,7 @@ def parse_bot_commands(slack_events):
     for event in slack_events:
         if event["type"] == "message" and "subtype" not in event:
             user_id, message = parse_direct_mention(event["text"])
-            if user_id == starterbot_id:
+            if user_id == STARTERBOT_ID:
                 return message, event["channel"]
     return None, None
 
@@ -65,7 +65,7 @@ if __name__ == "__main__":
     if slack_client.rtm_connect(with_team_state=False):
         print("Starter Bot connected and running!")
         # Read bot's user ID by calling Web API method `auth.test`
-        starterbot_id = slack_client.api_call("auth.test")["user_id"]
+        STARTERBOT_ID = slack_client.api_call("auth.test")["user_id"]
         while True:
             command, channel = parse_bot_commands(slack_client.rtm_read())
             if command:

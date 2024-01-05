@@ -4,11 +4,11 @@ Bot to interact with Slack
 import os
 import time
 import re
-from slackclient import SlackClient
+from slack.web.client import WebClient
 
 
 # instantiate Slack client
-slack_client = SlackClient(os.environ.get("SLACK_BOT_TOKEN"))
+slack_client = WebClient(token=os.environ.get("SLACK_BOT_TOKEN"))
 # starterbot's user ID in Slack: value is assigned after the bot starts up
 STARTERBOT_ID = None
 
